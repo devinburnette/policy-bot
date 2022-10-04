@@ -72,7 +72,7 @@ func findResultsWithAllowedCandidates(result *common.Result) []*common.Result {
 		results = append(results, findResultsWithAllowedCandidates(c)...)
 	}
 
-	if len(result.Children) == 0 && len(result.AllowedCandidates) > 0 && result.Error == nil {
+	if len(result.Children) == 0 && len(result.AllowedCandidates) > 0 && result.Status != common.StatusSkipped && result.Error == nil {
 		results = append(results, result)
 	}
 
@@ -85,6 +85,7 @@ func reviewIsAllowed(review *pull.Review, allowedCandidates []*common.Candidate)
 			return true
 		}
 	}
+
 	return false
 }
 
